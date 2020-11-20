@@ -1,14 +1,27 @@
 #include <iostream>
 #include <perceptron/Perceptron.h>
 
-int main([[maybe_unused]]int argc, [[maybe_unused]]char **argv) {
+int main() {
     std::vector<std::vector<double>> inputs{
-            {1, 2},
-            {2, 1}
+            {1.0, 1.0},
+            {2.0, 1.0},
+            {2.0, 2.0},
+            {1.0, 3.0},
+            {3.0, 3.0},
+            {2.0, 4.0},
+            {5.0, 4.0},
+            {4.0, 5.0}
     };
 
     std::vector<double> labels{
-            1, -1
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0
     };
 
 
@@ -16,5 +29,5 @@ int main([[maybe_unused]]int argc, [[maybe_unused]]char **argv) {
 
     perceptron.train();
 
-    std::cout << perceptron.predict({1, 2}) << std::endl;
+    std::cout << perceptron.predict({2.0, 1.0, 1.0}) << std::endl;
 }

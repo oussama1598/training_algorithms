@@ -1,8 +1,8 @@
 #include "Math.h"
 
 std::vector<double> Math::scalar_product(std::vector<double> a, double scalar) {
-    for (double &i : a)
-        i = i * scalar;
+    for (size_t i = 0; i < a.size(); i++)
+        a[i] = a[i] * scalar;
 
     return a;
 }
@@ -21,8 +21,8 @@ std::vector<double> Math::sum_vectors(std::vector<double> a, std::vector<double>
     std::vector<double> c;
     c.reserve(a.size());
 
-    for (double &i : a)
-        c.push_back(a[i] + b[i]);
+    for (size_t i = 0; i < a.size(); i++)
+        c.push_back(a.at(i) + b.at(i));
 
     return c;
 }

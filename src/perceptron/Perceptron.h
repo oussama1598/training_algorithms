@@ -11,6 +11,8 @@ private:
     std::default_random_engine _generator;
     std::uniform_real_distribution<double> _distribution{-1.0, 1.0};
 
+    double _bias = 1;
+
     std::vector<std::vector<double>> _inputs;
     std::vector<double> _labels;
     std::vector<double> _weights;

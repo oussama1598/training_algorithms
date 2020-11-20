@@ -3,10 +3,15 @@
 Perceptron::Perceptron(std::vector<std::vector<double>> &inputs, std::vector<double> &labels)
         : _inputs(inputs),
           _labels(labels) {
-    for (size_t i = 0; i < _inputs[0].size(); i++)
+
+    for (size_t i = 0; i < _inputs[0].size() + 1; i++)
         _weights.push_back(
                 _distribution(_generator)
         );
+
+    for (auto &_input : _inputs)
+        _input.push_back(_bias);
+
 }
 
 double Perceptron::_calculate_loss() {
@@ -32,7 +37,7 @@ void Perceptron::train() {
 
             double label = _labels.at(i);
 
-            if (Math::sign(predict(x)) * label < 0)
+            if (predict(x) * label <= 0)
                 _weights = Math::sum_vectors(
                         _weights,
                         Math::scalar_product(x, label)
@@ -42,5 +47,5 @@ void Perceptron::train() {
 }
 
 double Perceptron::predict(std::vector<double> x) {
-    return Math::dot_product(x, _weights);
+    return Math::sign(Math::dot_product(x, _weights));
 }
