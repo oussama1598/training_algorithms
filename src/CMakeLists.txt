@@ -1,4 +1,5 @@
-add_subdirectory(cplotplot)
+add_subdirectory(perceptron)
+add_subdirectory(math)
 
-add_executable(cplotplot_bin main.cpp)
-target_link_libraries(cplotplot_bin PRIVATE perceptron)
+add_executable(perceptron_bin main.cpp)
+target_link_libraries(perceptron_bin PRIVATE perceptron)

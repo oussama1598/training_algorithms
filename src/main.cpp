@@ -1,8 +1,20 @@
 #include <iostream>
-#include <cplotplot/cplotplot.h>
+#include <perceptron/Perceptron.h>
 
 int main([[maybe_unused]]int argc, [[maybe_unused]]char **argv) {
-    std::cout << "Main file" << std::endl;
+    std::vector<std::vector<double>> inputs{
+            {1, 2},
+            {2, 1}
+    };
 
-    return 0;
+    std::vector<double> labels{
+            1, -1
+    };
+
+
+    Perceptron perceptron{inputs, labels};
+
+    perceptron.train();
+
+    std::cout << perceptron.predict({1, 2}) << std::endl;
 }

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.13)
-project(chess_game)
+project(training_algorithms)
 
 find_program(CONAN conan)
 
