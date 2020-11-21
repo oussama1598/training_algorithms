@@ -13,6 +13,7 @@ Pocket::Pocket(std::vector<std::vector<double>> &inputs, std::vector<double> &la
         _input.push_back(_bias);
 
     _weights_history.emplace_back(_weights);
+    _losses_history.push_back(_calculate_loss(_weights));
 }
 
 double Pocket::_calculate_loss(std::vector<double> &weights) {
@@ -34,23 +35,28 @@ void Pocket::train() {
     for (int j = 0; j < _max_iterations; j++) {
         std::vector<double> weights(_weights);
 
-        for (size_t i = 0; i < _inputs.size(); i++) {
-            std::vector<double> &x = _inputs.at(i);
+        for (int k = 0; k < 200; k++) {
+            for (size_t i = 0; i < _inputs.size(); i++) {
+                std::vector<double> &x = _inputs.at(i);
 
-            double label = _labels.at(i);
+                double label = _labels.at(i);
 
-            if (predict(x, weights) != label) {
-                weights = Math::sum_vectors(
-                        weights,
-                        Math::scalar_product(x, label)
-                );
+                if (predict(x, weights) != label) {
+                    weights = Math::sum_vectors(
+                            weights,
+                            Math::scalar_product(x, label)
+                    );
+                }
             }
         }
 
-        std::cout << _calculate_loss(weights) << " " << _calculate_loss(_weights) << std::endl;
-
-        if (_calculate_loss(weights) < _calculate_loss(_weights))
+        if (_calculate_loss(weights) < _calculate_loss(_weights)) {
             _weights = weights;
+
+            _weights_history.emplace_back(_weights);
+        }
+
+        _losses_history.push_back(_calculate_loss(_weights));
     }
 }
 

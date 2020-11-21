@@ -13,6 +13,7 @@ Perceptron::Perceptron(std::vector<std::vector<double>> &inputs, std::vector<dou
         _input.push_back(_bias);
 
     _weights_history.emplace_back(_weights);
+    _losses_history.push_back(_calculate_loss());
 }
 
 double Perceptron::_calculate_loss() {
@@ -47,6 +48,8 @@ void Perceptron::train() {
                 _weights_history.emplace_back(_weights);
             }
         }
+
+        _losses_history.push_back(_calculate_loss());
     }
 }
 

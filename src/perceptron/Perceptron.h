@@ -14,6 +14,7 @@ private:
     double _bias = 1;
 
     std::vector<std::vector<double>> _weights_history;
+    std::vector<double> _losses_history;
 
     std::vector<std::vector<double>> _inputs;
     std::vector<double> _labels;
@@ -30,5 +31,7 @@ public:
     double predict(std::vector<double> x);
 
     inline std::vector<std::vector<double>> &get_weight_history() { return _weights_history; }
+
+    inline std::vector<double> &get_losses_history() { return _losses_history; }
 };
 

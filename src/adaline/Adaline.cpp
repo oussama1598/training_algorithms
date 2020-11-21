@@ -13,7 +13,7 @@ Adaline::Adaline(std::vector<std::vector<double>> &inputs, std::vector<double> &
         _input.push_back(_bias);
 
     _weights_history.emplace_back(_weights);
-
+    _losses_history.push_back(_calculate_loss());
 }
 
 double Adaline::_calculate_loss() {
@@ -50,6 +50,8 @@ void Adaline::train() {
                 _weights_history.emplace_back(_weights);
             }
         }
+
+        _losses_history.push_back(_calculate_loss());
     }
 }
 

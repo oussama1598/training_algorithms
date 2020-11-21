@@ -77,6 +77,7 @@ namespace {
         j["data"] = inputs;
         j["labels"] = labels;
         j["weights"] = pocket.get_weight_history();
+        j["losses"] = pocket.get_losses_history();
 
         save_to_file("pocket_training_evolution.json", j.dump(3));
     }

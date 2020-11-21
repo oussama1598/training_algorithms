@@ -37,6 +37,7 @@ namespace {
         j["data"] = inputs;
         j["labels"] = labels;
         j["weights"] = perceptron.get_weight_history();
+        j["losses"] = perceptron.get_losses_history();
 
         save_to_file("perceptron_training_evolution.json", j.dump(3));
     }

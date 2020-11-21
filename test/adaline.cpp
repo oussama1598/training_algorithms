@@ -77,6 +77,7 @@ namespace {
         j["data"] = inputs;
         j["labels"] = labels;
         j["weights"] = adaline.get_weight_history();
+        j["losses"] = adaline.get_losses_history();
 
         save_to_file("adaline_training_evolution.json", j.dump(3));
     }
