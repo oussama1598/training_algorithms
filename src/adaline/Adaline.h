@@ -11,7 +11,10 @@ private:
     std::default_random_engine _generator;
     std::uniform_real_distribution<double> _distribution{-1.0, 1.0};
 
+    int _max_iterations = 1000;
     double _bias = 1;
+
+    std::vector<std::vector<double>> _weights_history;
 
     std::vector<std::vector<double>> _inputs;
     std::vector<double> _labels;
@@ -26,5 +29,7 @@ public:
     void train();
 
     double predict(std::vector<double> x);
+
+    inline std::vector<std::vector<double>> &get_weight_history() { return _weights_history; }
 };
 
