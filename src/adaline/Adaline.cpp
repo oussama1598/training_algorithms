@@ -1,6 +1,6 @@
-#include "Perceptron.h"
+#include "Adaline.h"
 
-Perceptron::Perceptron(std::vector<std::vector<double>> &inputs, std::vector<double> &labels)
+Adaline::Adaline(std::vector<std::vector<double>> &inputs, std::vector<double> &labels)
         : _inputs(inputs),
           _labels(labels) {
 
@@ -12,10 +12,9 @@ Perceptron::Perceptron(std::vector<std::vector<double>> &inputs, std::vector<dou
     for (auto &_input : _inputs)
         _input.push_back(_bias);
 
-    _weights_history.emplace_back(_weights);
 }
 
-double Perceptron::_calculate_loss() {
+double Adaline::_calculate_loss() {
     double loss = 0;
 
     for (size_t i = 0; i < _inputs.size(); i++) {
@@ -31,25 +30,22 @@ double Perceptron::_calculate_loss() {
     return loss / _inputs.size();
 }
 
-void Perceptron::train() {
+void Adaline::train() {
     while (_calculate_loss() != 0) {
         for (size_t i = 0; i < _inputs.size(); i++) {
             std::vector<double> &x = _inputs.at(i);
 
             double label = _labels.at(i);
 
-            if (predict(x) * label <= 0) {
+            if (predict(x) * label <= 0)
                 _weights = Math::sum_vectors(
                         _weights,
                         Math::scalar_product(x, label)
                 );
-
-                _weights_history.emplace_back(_weights);
-            }
         }
     }
 }
 
-double Perceptron::predict(std::vector<double> x) {
+double Adaline::predict(std::vector<double> x) {
     return Math::sign(Math::dot_product(x, _weights));
 }

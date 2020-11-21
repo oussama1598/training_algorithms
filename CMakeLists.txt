@@ -38,4 +38,5 @@ endif()
 add_compile_options(-DQT_NO_OPENGL)
 
 add_subdirectory(src)
+add_subdirectory(test)
 

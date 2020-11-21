@@ -6,14 +6,12 @@
 #include <iostream>
 #include <math/Math.h>
 
-class Perceptron {
+class Adaline {
 private:
     std::default_random_engine _generator;
     std::uniform_real_distribution<double> _distribution{-1.0, 1.0};
 
     double _bias = 1;
-
-    std::vector<std::vector<double>> _weights_history;
 
     std::vector<std::vector<double>> _inputs;
     std::vector<double> _labels;
@@ -23,12 +21,10 @@ private:
     double _calculate_loss();
 
 public:
-    Perceptron(std::vector<std::vector<double>> &inputs, std::vector<double> &labels);
+    Adaline(std::vector<std::vector<double>> &inputs, std::vector<double> &labels);
 
     void train();
 
     double predict(std::vector<double> x);
-
-    inline std::vector<std::vector<double>> &get_weight_history() { return _weights_history; }
 };
 
