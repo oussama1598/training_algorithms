@@ -4,10 +4,14 @@ Regression::Regression(std::vector<std::vector<double>> &inputs, std::vector<dou
         : _inputs(inputs),
           _labels(labels) {
 
-    for (size_t i = 0; i < _inputs[0].size(); i++)
+    for (size_t i = 0; i < _inputs[0].size() + 1; i++)
         _weights.push_back(
                 _distribution(_generator)
         );
+
+    for (auto &_input : _inputs)
+        _input.push_back(_bias);
+
 
     _weights_history.emplace_back(_weights);
     _losses_history.push_back(_calculate_loss());
@@ -31,12 +35,13 @@ double Regression::_calculate_loss() {
 std::vector<double> Regression::_compute_grad_MSE() {
     std::vector<double> grad;
 
-    for (size_t i = 0; i < _inputs.at(0).size(); i++) {
+    for (size_t j = 0; j < _inputs.at(0).size(); j++) {
         double g = 0;
-        for (size_t j = 0; j < _inputs.size(); j++) {
-            std::vector<double> &x = _inputs.at(j);
 
-            g += x[i] * (predict(x) - _labels.at(j));
+        for (size_t i = 0; i < _inputs.size(); i++) {
+            std::vector<double> &x = _inputs.at(i);
+
+            g += x[j] *  (predict(x) - _labels.at(i));
         }
 
         g *= (2.0 / _inputs.size());

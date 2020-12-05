@@ -11,7 +11,8 @@ private:
     std::uniform_real_distribution<double> _distribution{-1.0, 1.0};
 
     double _learning_rate = 0.01;
-    int _max_iterations = 100;
+    double _bias = 1;
+    int _max_iterations = 1000;
 
     std::vector<std::vector<double>> _weights_history;
     std::vector<double> _losses_history;
