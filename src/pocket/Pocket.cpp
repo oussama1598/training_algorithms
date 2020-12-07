@@ -1,20 +1,9 @@
 #include "Pocket.h"
 
-Pocket::Pocket(std::vector<std::vector<double>> &inputs, std::vector<double> &labels)
-        : _inputs(inputs),
-          _labels(labels) {
-
-    for (size_t i = 0; i < _inputs[0].size() + 1; i++)
-        _weights.push_back(
-                _distribution(_generator)
-        );
-
-    for (auto &_input : _inputs)
-        _input.push_back(_bias);
-
-    _weights_history.emplace_back(_weights);
-    _losses_history.push_back(_calculate_loss(_weights));
-}
+Pocket::Pocket(DataSet &dataset, int epochs) : Neuron(
+        dataset,
+        Math::sign
+), _max_iterations(epochs) {}
 
 double Pocket::_calculate_loss(std::vector<double> &weights) {
     double loss = 0;
@@ -58,10 +47,14 @@ void Pocket::train() {
     }
 }
 
-double Pocket::predict(std::vector<double> x) {
-    return Math::sign(Math::dot_product(x, _weights));
-}
-
 double Pocket::predict(std::vector<double> x, std::vector<double> &weights) {
     return Math::sign(Math::dot_product(x, weights));
+}
+
+double Pocket::_calculate_loss() {
+    return 0;
+}
+
+double Pocket::predict(std::vector<double> x) {
+    return Neuron::predict(std::move(x));
 }

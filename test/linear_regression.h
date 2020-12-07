@@ -4,7 +4,7 @@
 #include <nlohmann/json.hpp>
 #include <csv.h>
 
-#include "regression/Regression.h"
+#include "linear_regression/LinearRegression.h"
 #include "helpers.h"
 
 using json = nlohmann::json;

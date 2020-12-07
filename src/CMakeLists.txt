@@ -1,8 +1,8 @@
+add_subdirectory(dataset)
+add_subdirectory(neuron)
 add_subdirectory(math)
-add_subdirectory(perceptron)
+add_subdirectory(pla)
 add_subdirectory(adaline)
 add_subdirectory(pocket)
-add_subdirectory(regression)
-
-add_executable(perceptron_bin main.cpp)
-target_link_libraries(perceptron_bin PRIVATE perceptron)
+add_subdirectory(linear_regression)
+add_subdirectory(logistic_regression)

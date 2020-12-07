@@ -31,3 +31,11 @@ std::vector<double> Math::sum_vectors(std::vector<double> a, std::vector<double>
 double Math::sign(double number) {
     return number > 0 ? 1 : -1;
 }
+
+double Math::same(double number) {
+    return number;
+}
+
+double Math::sigmoid(double number) {
+    return 1 / (1 + std::exp(-number));
+}

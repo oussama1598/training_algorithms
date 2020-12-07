@@ -1,22 +1,11 @@
-#include "Perceptron.h"
+#include "PLA.h"
 
-Perceptron::Perceptron(std::vector<std::vector<double>> &inputs, std::vector<double> &labels)
-        : _inputs(inputs),
-          _labels(labels) {
+PLA::PLA(DataSet &dataset) : Neuron(
+        dataset,
+        Math::sign
+) {}
 
-    for (size_t i = 0; i < _inputs[0].size() + 1; i++)
-        _weights.push_back(
-                _distribution(_generator)
-        );
-
-    for (auto &_input : _inputs)
-        _input.push_back(_bias);
-
-    _weights_history.emplace_back(_weights);
-    _losses_history.push_back(_calculate_loss());
-}
-
-double Perceptron::_calculate_loss() {
+double PLA::_calculate_loss() {
     double loss = 0;
 
     for (size_t i = 0; i < _inputs.size(); i++) {
@@ -32,7 +21,7 @@ double Perceptron::_calculate_loss() {
     return loss / _inputs.size();
 }
 
-void Perceptron::train() {
+void PLA::train() {
     while (_calculate_loss() != 0) {
         for (size_t i = 0; i < _inputs.size(); i++) {
             std::vector<double> &x = _inputs.at(i);
@@ -51,8 +40,4 @@ void Perceptron::train() {
 
         _losses_history.push_back(_calculate_loss());
     }
-}
-
-double Perceptron::predict(std::vector<double> x) {
-    return Math::sign(Math::dot_product(x, _weights));
 }

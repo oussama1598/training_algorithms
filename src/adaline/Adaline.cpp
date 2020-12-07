@@ -1,20 +1,9 @@
 #include "Adaline.h"
 
-Adaline::Adaline(std::vector<std::vector<double>> &inputs, std::vector<double> &labels)
-        : _inputs(inputs),
-          _labels(labels) {
-
-    for (size_t i = 0; i < _inputs[0].size() + 1; i++)
-        _weights.push_back(
-                _distribution(_generator)
-        );
-
-    for (auto &_input : _inputs)
-        _input.push_back(_bias);
-
-    _weights_history.emplace_back(_weights);
-    _losses_history.push_back(_calculate_loss());
-}
+Adaline::Adaline(DataSet &dataset, int epochs) : Neuron(
+        dataset,
+        Math::sign
+), _max_iterations(epochs) {}
 
 double Adaline::_calculate_loss() {
     double loss = 0;
@@ -53,8 +42,4 @@ void Adaline::train() {
 
         _losses_history.push_back(_calculate_loss());
     }
-}
-
-double Adaline::predict(std::vector<double> x) {
-    return Math::sign(Math::dot_product(x, _weights));
 }
