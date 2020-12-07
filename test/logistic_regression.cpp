@@ -13,16 +13,10 @@ namespace {
                 1000,
                 0.01
         };
+        Metrics metrics = Metrics::load(dataset, logistic_regression);
 
         logistic_regression.train();
 
-        json j;
-
-        j["data"] = dataset.get_inputs();
-        j["labels"] = dataset.get_labels();
-        j["weights"] = logistic_regression.get_weight_history();
-        j["losses"] = logistic_regression.get_losses_history();
-
-        save_to_file("training_output/logistic_regression_training_evolution.json", j.dump(3));
+        metrics.save("training_output/logistic_regression_training_evolution.json");
     }
 }

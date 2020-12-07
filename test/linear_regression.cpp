@@ -14,15 +14,10 @@ namespace {
                 0.0000001
         };
 
+        Metrics metrics = Metrics::load(dataset, regression);
+
         regression.train();
 
-        json j;
-
-        j["data"] = dataset.get_inputs();
-        j["labels"] = dataset.get_labels();
-        j["weights"] = regression.get_weight_history();
-        j["losses"] = regression.get_losses_history();
-
-        save_to_file("training_output/linear_regression_training_evolution.json", j.dump(3));
+        metrics.save("training_output/linear_regression_training_evolution.json");
     }
 }
